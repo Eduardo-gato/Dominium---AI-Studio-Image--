@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Modality } from "@google/genai";
 import type { GenerateContentResponse } from "@google/genai";
 import type { CreateFunction, EditFunction } from '../types';
@@ -36,7 +35,7 @@ const getCreatePrompt = (prompt: string, func: CreateFunction): string => {
     }
 };
 
-export const generateImageFromPrompt = async (prompt: string, func: CreateFunction): Promise<string> => {
+export const generateImageFromPrompt = async (prompt: string, func: CreateFunction, aspectRatio: string): Promise<string> => {
     const fullPrompt = getCreatePrompt(prompt, func);
     const response = await ai.models.generateImages({
         model: 'imagen-4.0-generate-001',
@@ -44,7 +43,7 @@ export const generateImageFromPrompt = async (prompt: string, func: CreateFuncti
         config: {
             numberOfImages: 1,
             outputMimeType: 'image/jpeg',
-            aspectRatio: '1:1',
+            aspectRatio: aspectRatio,
         },
     });
 
